@@ -1,14 +1,30 @@
-# Welcome to your CDK TypeScript project!
+# local lambda develop enviroment
 
-This is a blank project for TypeScript development with CDK.
+- Use aws cdk and sum to maintain local development and deployment of lambda
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## procedure
 
-## Useful commands
+```bash
+# global install aws-cdk
+npm install -g aws-cdk
+cdk --version
+## 1.26.0 (build e251651)
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+cdk init app --language=typescript
+npm install @aws-cdk/aws-lambda @aws-cdk/aws-apigateway
+
+# generate cloudformation config by cdk stack
+cdk synth --no-staging > template.yml
+
+# install aws-sam assumes MacOS
+brew tap aws/tap
+brew install aws-sam-cli
+
+sam --version
+## SAM CLI, version 0.43.0
+
+# exec api gateway
+sam local start-api
+## http://127.0.0.1:3000/test
+## Hello World on browser
+```
